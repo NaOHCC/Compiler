@@ -26,7 +26,7 @@ TOKEN GetToken()
 			c = getchar();
 			if (isblank(c))
 				state = 0;
-			else if (isalpha(c)||c=='_')
+			else if (isalpha(c) || c == '_')
 			{
 				ungetc(c, stdin);
 				state = 1;
@@ -56,14 +56,6 @@ TOKEN GetToken()
 				state = 20;
 			else if (c == ')')
 				state = 21;
-			else if (c == '\'')
-				state = 22;
-			else if (c == '\'')
-				state = 23;
-			else if (c == '"')
-				state = 24;
-			else if (c == '"')
-				state = 25;
 			else if (c == '!')
 				state = 26;
 			else if (c == '&')
@@ -74,6 +66,11 @@ TOKEN GetToken()
 				state = 35;
 			else if (c == '<')
 				state = 38;
+			else if (c == '\'')
+				state = 41;
+			//else if (c == '"')
+			//	state = 44;
+
 
 			break; }
 		case 1:
@@ -345,6 +342,26 @@ TOKEN GetToken()
 		}
 		case 40: {
 			token.value = "<=";
+			return token;
+		}
+		case 41: {
+			c = getchar();
+			token.name = "char";
+			letter.push_back(c);
+			state = 42;
+			break;
+		}
+		case 42: {
+			c = getchar();
+			if (c == '\'')
+				state = 43;
+			else
+			{
+				ungetc(c, stdin);
+			}
+		}
+		case 43: {
+			token.value = letter;
 			return token;
 		}
 
