@@ -2,15 +2,17 @@
 //
 
 #include <iostream>
+#include<stdio.h>
 #include"LexAnalysis.h"
 using namespace std;
 int main()
 {
     TOKEN token;
-    token = GetToken();
-    cout << token.name << " " << token.value<<endl;
-    token = GetToken();
-    cout << token.name << " " << token.value<<endl;
+    token = GetToken(stdin);
+    //cout << token.name << " " << token.value<<endl;
+    //token = GetToken(stdin);
+    //cout << token.name << " " << token.value<<endl;
+    return 0;
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

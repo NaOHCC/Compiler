@@ -6,4 +6,6 @@ struct TOKEN
 	string name;//TOKEN NAME
 	string value;//TOKEN Attribute Value
 };
-TOKEN GetToken();
+TOKEN GetToken(FILE *);
+
+int fail();
