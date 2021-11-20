@@ -10,10 +10,10 @@ using namespace std;
 const vector<string> keywords{"if", "else", "while", "do", "main", "int", "float",
                               "double", "return", "const", "void", "continue", "break", "char", "unsigned", "enum",
                               "long", "switch", "case", "auto", "static"};
+int state = 0;
 
 TOKEN GetToken()
 {
-    int state = 0;
     string letter;
     TOKEN token;
     char c;
@@ -33,8 +33,8 @@ TOKEN GetToken()
             }
             else if (isdigit(c))
             {
-                ungetc(c, stdin);
-                state = 3;
+                letter.push_back(c);
+                state = 50;
             }
             else if (c == '+')
                 state = 5;
@@ -98,22 +98,22 @@ TOKEN GetToken()
             }
             return token; //综态，无sate变化
         }
-        case 3:
-            c = getchar();
-            if (isdigit(c))
-                letter.push_back(c);
-            else
-            { //非数字，回退一个字符，以便下次识别
-                ungetc(c, stdin);
-                state = 4;
-            }
-            break;
-        case 4:
-        {
-            token.name = "digit";
-            token.value = letter;
-            return token; //综态，无sate变化
-        }
+        //case 3:
+        //    c = getchar();
+        //    if (isdigit(c))
+        //        letter.push_back(c);
+        //    else
+        //    { //非数字，回退一个字符，以便下次识别
+        //        ungetc(c, stdin);
+        //        state = 4;
+        //    }
+        //    break;
+        //case 4:
+        //{
+        //    token.name = "digit";
+        //    token.value = letter;
+        //    return token; //综态，无sate变化
+        //}
         case 5:
         {
             c = getchar();
@@ -172,9 +172,19 @@ TOKEN GetToken()
         }
         case 12:
         {
-            token.name = "symbol";
-            token.value = "/";
-            return token;
+            c = getchar();
+            if (c != '/' && c != '*')
+            {
+                ungetc(c, stdin);
+                token.name = "symbol";
+                token.value = "/";
+                return token;
+            }
+            else
+            {
+                state = 48;
+                break;
+            }
         }
         case 13:
         {
@@ -439,8 +449,142 @@ TOKEN GetToken()
             token.value = letter;
             return token;
         }
+        case 48:
+        {
+            c = getchar();
+            if (c == '\n')
+                state = 0;//回到初态，相当于终态
+            else if (c == '*')
+                state = 49;
+            //都不是，则还是注释内容,state不变
+            break;
+        }
+        case 49:
+        {
+            c = getchar();
+            if (c == '/')
+                state = 0;
+            else
+                state = 48;// /**/不完整
+            break;
+        }
+        case 50:
+        {
+            c = getchar();
+            if (isdigit(c))
+                letter.push_back(c);
+            else if (c == '.')
+            {
+                letter.push_back(c);
+                state = 51;
+            }
+            else if (c == 'E' || c == 'e')
+            {
+                letter.push_back(c);
+                state = 53;
+            }
+            else
+            {
+                ungetc(c, stdin);
+                state = 57;
+            }
+            break;
+        }
+        case 51:
+        {
+            c = getchar();
+            if (isdigit(c))
+            {
+                letter.push_back(c);
+                state = 52;
+            }
+            break;
+        }
+        case 52:
+        {
+            c = getchar();
+            if (isdigit(c))
+                letter.push_back(c);
+            else if (c=='E'||c=='e')
+            {
+                letter.push_back(c);
+                state = 53;
+            }
+            else
+            {
+                ungetc(c,stdin);
+                state = 58;
+            }
+            break;
+        }
+        case 53:
+        {
+            c = getchar();
+            if (c == '+' || c == '-')
+            {
+                letter.push_back(c);
+                state = 54;
+            }
+            else if (isdigit(c))
+            {
+                letter.push_back(c);
+                state = 55;
+            }
+            break;
+        }
+        case 54:
+        {
+            c = getchar();
+            if (isdigit(c))
+            {
+                letter.push_back(c);
+                state = 55;
+            }
+            break;
+        }
+        case 55:
+        {
+            c = getchar();
+            if (isdigit(c))
+                letter.push_back(c);
+            else
+            {
+                ungetc(c, stdin);
+                state = 56;
+            }
+            break;
+        }
+        case 56:
+        {
+            token.name = "digit";
+            token.value = letter;
+            return token;
+        }
+        case 57:
+        {
+            token.name = "digit";
+            token.value = letter;
+            return token;
+        }
+        case 58:
+        {
+            token.name = "digit";
+            token.value = letter;
+            return token;
+        }
         default:
             break;
         }
     }
+}
+
+int fail()
+{
+    int nextState=0;
+    switch (state)
+    {
+    default:
+        break;
+    }
+    return nextState;
 }
