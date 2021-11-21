@@ -1,24 +1,34 @@
 ﻿// Compiler.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include<stdio.h>
-#include"LexAnalysis.h"
+#include <stdio.h>
+#include "LexAnalysis.h"
 using namespace std;
+extern int row;
 int main()
 {
+    FILE *fp = fopen("TextCode.txt", "r");
+
     TOKEN token;
-    token = GetToken(stdin);
-    //cout << token.name << " " << token.value<<endl;
+    char c;
+    while (c = getc(fp) != EOF)
+    {
+        ungetc(c, fp);
+        token = GetToken(fp);
+        cout << token.name << " " << token.value << endl;
+    }
+
     //token = GetToken(stdin);
-    //cout << token.name << " " << token.value<<endl;
+    //cout << token.name << " " << token.value<<endl<<row;
+    fclose(fp);
     return 0;
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单
 
-// 入门使用技巧: 
+// 入门使用技巧:
 //   1. 使用解决方案资源管理器窗口添加/管理文件
 //   2. 使用团队资源管理器窗口连接到源代码管理
 //   3. 使用输出窗口查看生成输出和其他消息

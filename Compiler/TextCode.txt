@@ -1,0 +1,18 @@
+int main()
+{
+	int a;
+	a=123;
+	int b=123.123;
+	while(a--)
+	{
+		if (a < b)
+			continue;
+	}
+	char c;
+	c='C';
+	//´íÎó²âÊÔ
+	12.a
+	''
+
+	return 0;
+}
