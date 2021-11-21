@@ -146,7 +146,7 @@
     <ClInclude Include="LexAnalysis.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TextCode.txt" />
+    <Text Include="TestCode.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

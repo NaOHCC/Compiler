@@ -12,7 +12,7 @@ const vector<string> keywords{"if", "else", "while", "do", "main", "int", "float
                               "long", "switch", "case", "auto", "static"};
 int state;
 int lexLength;
-int row;
+int row = 1;
 TOKEN GetToken(FILE *fp)
 {
     state = 0;
@@ -20,19 +20,19 @@ TOKEN GetToken(FILE *fp)
     TOKEN token;
     char c;
     lexLength = 0;
-    while (1) //每次循环拿到一个字符
+    while (!feof(fp)) //每次循环拿到一个字符
     {
         switch (state)
         {
         case 0:
         {
             c = getc(fp);
+            if (c == '\n')
+            {
+                row++;
+            }
             if (isspace(c))
             {
-                if (c == '\n')
-                {
-                    row++;
-                }
                 state = 0;
             }
             else if (isalpha(c) || c == '_')
@@ -86,16 +86,17 @@ TOKEN GetToken(FILE *fp)
             c = getc(fp);
             if (isalpha(c) || isdigit(c) || c == '_')
                 letter.push_back(c);
-            else if (isspace(c))
+            else
+            //if (isspace(c)||c=='('||c==';')
             { //非字母非数字，回退一个字符，以便下次识别
                 ungetc(c, fp);
                 state = 2; //跳转到2号状态
             }
-            else
-            {
-                ungetc(c, fp);
-                state = fail();
-            }
+            //else
+            //{
+            //    ungetc(c, fp);
+            //    state = fail();
+            //}
             break;
         case 2: //letter识别结束
         {
@@ -196,7 +197,7 @@ TOKEN GetToken(FILE *fp)
             }
             else
             {
-                state = 48;
+                state = 48; //识别到注释
                 break;
             }
         }
@@ -475,7 +476,10 @@ TOKEN GetToken(FILE *fp)
         {
             c = getc(fp);
             if (c == '\n')
+            {
+                ungetc(c, fp);
                 state = 0; //回到初态，相当于终态
+            }
             else if (c == '*')
                 state = 49;
             //都不是，则还是注释内容,state不变
@@ -486,8 +490,12 @@ TOKEN GetToken(FILE *fp)
             c = getc(fp);
             if (c == '/')
                 state = 0;
+            else if (c == '\n')
+                row++;
             else
+            {
                 state = 48; // /**/不完整
+            }
             break;
         }
         case 50:
@@ -627,6 +635,7 @@ TOKEN GetToken(FILE *fp)
         }
         lexLength++;
     }
+    return token;
 }
 
 string numberType(string num)
@@ -641,20 +650,20 @@ int fail()
     {
     case 1:
     {
-        printf("define id error in:%d\n", lexLength);
+        printf("define id error in row:%d line:%d\n", row, lexLength);
         break;
     }
     case 41:
     case 42:
     {
-        printf("define const char error in:%d\n", lexLength);
+        printf("define const char error in row:%d line:%d\n", row, lexLength);
         break;
     }
     case 51:
     case 53:
     case 54:
     {
-        printf("define number error in:%d\n", lexLength);
+        printf("define number error in row:%d line:%d\n", row, lexLength);
         break;
     }
     default:
