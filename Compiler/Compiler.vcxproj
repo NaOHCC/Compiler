@@ -148,6 +148,7 @@
     <ClInclude Include="RecursiveDescentParser.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="ParserCode.txt" />
     <Text Include="TestCode.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

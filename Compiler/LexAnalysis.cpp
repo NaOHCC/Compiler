@@ -13,14 +13,15 @@ const vector<string> keywords{"if", "else", "while", "do", "main", "int", "float
 int state;
 int lexLength;
 int row = 1;
-TOKEN GetToken(FILE *fp)
+extern FILE *fp;
+extern TOKEN token;
+TOKEN GetToken()
 {
     state = 0;
     string letter;
-    TOKEN token;
     char c;
     lexLength = 0;
-    while (!feof(fp)) //Ã¿´ÎÑ­»·ÄÃµ½Ò»¸ö×Ö·û
+    while (!feof(fp)) //æ¯æ¬¡å¾ªç¯æ‹¿åˆ°ä¸€ä¸ªå­—ç¬¦
     {
         switch (state)
         {
@@ -88,9 +89,9 @@ TOKEN GetToken(FILE *fp)
                 letter.push_back(c);
             else
             //if (isspace(c)||c=='('||c==';')
-            { //·Ç×ÖÄ¸·ÇÊı×Ö£¬»ØÍËÒ»¸ö×Ö·û£¬ÒÔ±ãÏÂ´ÎÊ¶±ğ
+            { //éå­—æ¯éæ•°å­—ï¼Œå›é€€ä¸€ä¸ªå­—ç¬¦ï¼Œä»¥ä¾¿ä¸‹æ¬¡è¯†åˆ«
                 ungetc(c, fp);
-                state = 2; //Ìø×ªµ½2ºÅ×´Ì¬
+                state = 2; //è·³è½¬åˆ°2å·çŠ¶æ€
             }
             //else
             //{
@@ -98,10 +99,10 @@ TOKEN GetToken(FILE *fp)
             //    state = fail();
             //}
             break;
-        case 2: //letterÊ¶±ğ½áÊø
+        case 2: //letterè¯†åˆ«ç»“æŸ
         {
             auto iter = find(keywords.begin(), keywords.end(), letter);
-            if (iter != keywords.end()) //Ê¶±ğµ½±£Áô×Ö
+            if (iter != keywords.end()) //è¯†åˆ«åˆ°ä¿ç•™å­—
             {
                 token.name = *iter;
                 token.value = letter;
@@ -111,14 +112,14 @@ TOKEN GetToken(FILE *fp)
                 token.name = "id";
                 token.value = letter;
             }
-            return token; //×ÛÌ¬£¬ÎŞsate±ä»¯
+            return token; //ç»¼æ€ï¼Œæ— sateå˜åŒ–
         }
         //case 3:
         //    c = getc(fp);
         //    if (isdigit(c))
         //        letter.push_back(c);
         //    else
-        //    { //·ÇÊı×Ö£¬»ØÍËÒ»¸ö×Ö·û£¬ÒÔ±ãÏÂ´ÎÊ¶±ğ
+        //    { //éæ•°å­—ï¼Œå›é€€ä¸€ä¸ªå­—ç¬¦ï¼Œä»¥ä¾¿ä¸‹æ¬¡è¯†åˆ«
         //        ungetc(c, fp);
         //        state = 4;
         //    }
@@ -127,7 +128,7 @@ TOKEN GetToken(FILE *fp)
         //{
         //    token.name = "digit";
         //    token.value = letter;
-        //    return token; //×ÛÌ¬£¬ÎŞsate±ä»¯
+        //    return token; //ç»¼æ€ï¼Œæ— sateå˜åŒ–
         //}
         case 5:
         {
@@ -135,11 +136,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '+')
             {
-                state = 7; //Ê¶±ğ++
+                state = 7; //è¯†åˆ«++
             }
             else
             {
-                ungetc(c, fp); //+µÄÏÂÒ»¸ö×Ö·û²»ÊÇ+
+                ungetc(c, fp); //+çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯+
                 state = 6;
             }
             break;
@@ -160,11 +161,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '-')
             {
-                state = 10; //Ê¶±ğ--
+                state = 10; //è¯†åˆ«--
             }
             else
             {
-                ungetc(c, fp); //-µÄÏÂÒ»¸ö×Ö·û²»ÊÇ-
+                ungetc(c, fp); //-çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯-
                 state = 9;
             }
             break;
@@ -197,7 +198,7 @@ TOKEN GetToken(FILE *fp)
             }
             else
             {
-                state = 48; //Ê¶±ğµ½×¢ÊÍ
+                state = 48; //è¯†åˆ«åˆ°æ³¨é‡Š
                 break;
             }
         }
@@ -207,11 +208,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '=')
             {
-                state = 15; //Ê¶±ğ==
+                state = 15; //è¯†åˆ«==
             }
             else
             {
-                ungetc(c, fp); // =µÄÏÂÒ»¸ö×Ö·û²»ÊÇ=
+                ungetc(c, fp); // =çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯=
                 state = 14;
             }
             break;
@@ -286,11 +287,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '=')
             {
-                state = 28; //Ê¶±ğ!=
+                state = 28; //è¯†åˆ«!=
             }
             else
             {
-                ungetc(c, fp); // !µÄÏÂÒ»¸ö×Ö·û²»ÊÇ=
+                ungetc(c, fp); // !çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯=
                 state = 27;
             }
             break;
@@ -311,11 +312,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '&')
             {
-                state = 31; //Ê¶±ğ&&
+                state = 31; //è¯†åˆ«&&
             }
             else
             {
-                ungetc(c, fp); // &µÄÏÂÒ»¸ö×Ö·û²»ÊÇ&
+                ungetc(c, fp); // &çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯&
                 state = 30;
             }
             break;
@@ -336,11 +337,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '|')
             {
-                state = 34; //Ê¶±ğ||
+                state = 34; //è¯†åˆ«||
             }
             else
             {
-                ungetc(c, fp); // |µÄÏÂÒ»¸ö×Ö·û²»ÊÇ|
+                ungetc(c, fp); // |çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯|
                 state = 33;
             }
             break;
@@ -361,11 +362,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '=')
             {
-                state = 37; //Ê¶±ğ>=
+                state = 37; //è¯†åˆ«>=
             }
             else
             {
-                ungetc(c, fp); // >µÄÏÂÒ»¸ö×Ö·û²»ÊÇ=
+                ungetc(c, fp); // >çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯=
                 state = 36;
             }
             break;
@@ -387,11 +388,11 @@ TOKEN GetToken(FILE *fp)
             token.name = "operator";
             if (c == '=')
             {
-                state = 40; //Ê¶±ğ<=
+                state = 40; //è¯†åˆ«<=
             }
             else
             {
-                ungetc(c, fp); // <µÄÏÂÒ»¸ö×Ö·û²»ÊÇ=
+                ungetc(c, fp); // <çš„ä¸‹ä¸€ä¸ªå­—ç¬¦ä¸æ˜¯=
                 state = 39;
             }
             break;
@@ -408,7 +409,7 @@ TOKEN GetToken(FILE *fp)
         }
         case 41:
         {
-            token.name = "char"; //È·¶¨Îª×Ö·û³£Á¿
+            token.name = "char"; //ç¡®å®šä¸ºå­—ç¬¦å¸¸é‡
             c = getc(fp);
             if (c != '\\' && c != '\'')
             {
@@ -418,9 +419,9 @@ TOKEN GetToken(FILE *fp)
             else if (c == '\\')
             {
                 letter.push_back(c);
-                state = 43; //´øÓĞ×ªÒåĞ±¸Ü
+                state = 43; //å¸¦æœ‰è½¬ä¹‰æ–œæ 
             }
-            else // µ¥ÒıºÅ¼äÎŞÄÚÈİ
+            else // å•å¼•å·é—´æ— å†…å®¹
             {
                 ungetc(c, fp);
                 state = fail();
@@ -478,11 +479,11 @@ TOKEN GetToken(FILE *fp)
             if (c == '\n')
             {
                 ungetc(c, fp);
-                state = 0; //»Øµ½³õÌ¬£¬Ïàµ±ÓÚÖÕÌ¬
+                state = 0; //å›åˆ°åˆæ€ï¼Œç›¸å½“äºç»ˆæ€
             }
             else if (c == '*')
                 state = 49;
-            //¶¼²»ÊÇ£¬Ôò»¹ÊÇ×¢ÊÍÄÚÈİ,state²»±ä
+            //éƒ½ä¸æ˜¯ï¼Œåˆ™è¿˜æ˜¯æ³¨é‡Šå†…å®¹,stateä¸å˜
             break;
         }
         case 49:
@@ -494,7 +495,7 @@ TOKEN GetToken(FILE *fp)
                 row++;
             else
             {
-                state = 48; // /**/²»ÍêÕû
+                state = 48; // /**/ä¸å®Œæ•´
             }
             break;
         }
@@ -635,12 +636,8 @@ TOKEN GetToken(FILE *fp)
         }
         lexLength++;
     }
+    printf("---------------------lex end---------------------\n");
     return token;
-}
-
-string numberType(string num)
-{
-    return "";
 }
 
 int fail()

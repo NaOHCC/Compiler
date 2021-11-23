@@ -4,20 +4,26 @@
 #include <iostream>
 #include <stdio.h>
 #include "LexAnalysis.h"
+#include "RecursiveDescentParser.h"
 using namespace std;
 extern int row;
 TOKEN token;
-FILE* fp;
+FILE *fp;
 int main()
 {
-    fp = fopen("TestCode.txt", "r+");
-    while (!feof(fp))
-    {
-        token = GetToken(fp);
-        if (token.name != "Error" && token.name != "")
-            printf("row:%-5d<%-10s,%-10s>\n", row, token.name.c_str(), token.value.c_str());
-    }
+    //fp = fopen("TestCode.txt", "r+");
+    //while (!feof(fp))
+    //{
+    //    token = GetToken();
+    //    if (token.name != "Error" && token.name != "")
+    //        printf("row:%-5d<%-10s,%-10s>\n", row, token.name.c_str(), token.value.c_str());
+    //}
+    //
+    //fclose(fp);
 
-    fclose(fp);
+    fp = stdin;
+    token = GetToken();
+    program();
+
     return 0;
 }

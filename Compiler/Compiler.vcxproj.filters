@@ -29,6 +29,9 @@
     <Text Include="TestCode.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="ParserCode.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LexAnalysis.h">
