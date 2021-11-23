@@ -6,11 +6,12 @@
 #include "LexAnalysis.h"
 using namespace std;
 extern int row;
+TOKEN token;
+FILE* fp;
 int main()
 {
-    FILE *fp = fopen("TextCode.txt", "r");
+    fp = fopen("TextCode.txt", "r");
 
-    TOKEN token;
     char c;
     while (c = getc(fp) != EOF)
     {

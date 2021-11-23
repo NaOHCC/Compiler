@@ -131,7 +131,7 @@ TOKEN GetToken(FILE *fp)
         case 5:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '+')
             {
                 state = 7; //识别++
@@ -156,7 +156,7 @@ TOKEN GetToken(FILE *fp)
         case 8:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '-')
             {
                 state = 10; //识别--
@@ -180,7 +180,7 @@ TOKEN GetToken(FILE *fp)
         }
         case 11:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "*";
             return token;
         }
@@ -190,7 +190,7 @@ TOKEN GetToken(FILE *fp)
             if (c != '/' && c != '*')
             {
                 ungetc(c, fp);
-                token.name = "symbol";
+                token.name = "operator";
                 token.value = "/";
                 return token;
             }
@@ -203,7 +203,7 @@ TOKEN GetToken(FILE *fp)
         case 13:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '=')
             {
                 state = 15; //识别==
@@ -227,62 +227,62 @@ TOKEN GetToken(FILE *fp)
         }
         case 17:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "{";
             return token;
         }
         case 18:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "}";
             return token;
         }
         case 19:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = ";";
             return token;
         }
         case 20:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "(";
             return token;
         }
         case 21:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = ")";
             return token;
         }
         case 22:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "'";
             return token;
         }
         case 23:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "'";
             return token;
         }
         case 24:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "\"";
             return token;
         }
         case 25:
         {
-            token.name = "symbol";
+            token.name = "operator";
             token.value = "\"";
             return token;
         }
         case 26:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '=')
             {
                 state = 28; //识别!=
@@ -307,7 +307,7 @@ TOKEN GetToken(FILE *fp)
         case 29:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '&')
             {
                 state = 31; //识别&&
@@ -332,7 +332,7 @@ TOKEN GetToken(FILE *fp)
         case 32:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '|')
             {
                 state = 34; //识别||
@@ -357,7 +357,7 @@ TOKEN GetToken(FILE *fp)
         case 35:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '=')
             {
                 state = 37; //识别>=
@@ -383,7 +383,7 @@ TOKEN GetToken(FILE *fp)
         case 38:
         {
             c = getc(fp);
-            token.name = "symbol";
+            token.name = "operator";
             if (c == '=')
             {
                 state = 40; //识别<=
