@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TextCode.txt">
+    <Text Include="TestCode.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

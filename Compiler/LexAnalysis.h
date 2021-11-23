@@ -5,8 +5,8 @@
 using namespace std;
 struct TOKEN
 {
-	string name;//TOKEN NAME
-	string value;//TOKEN Attribute Value
+    string name;  //TOKEN NAME
+    string value; //TOKEN Attribute Value
 };
 TOKEN GetToken(FILE *);
 
