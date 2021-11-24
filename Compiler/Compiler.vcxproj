@@ -142,12 +142,16 @@
     <ClCompile Include="LexAnalysis.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RecursiveDescentParser.cpp" />
+    <ClCompile Include="SLR_Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LexAnalysis.h" />
     <ClInclude Include="RecursiveDescentParser.h" />
+    <ClInclude Include="SLR_Parser.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="ACTION.txt" />
+    <Text Include="GOTO.txt" />
     <Text Include="ParserCode.txt" />
     <Text Include="TestCode.txt" />
   </ItemGroup>

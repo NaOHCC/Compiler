@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "LexAnalysis.h"
 #include "RecursiveDescentParser.h"
+#include "SLR_Parser.h"
 using namespace std;
 extern int row;
 TOKEN token;
@@ -21,9 +22,11 @@ int main()
     //
     //fclose(fp);
 
-    fp = stdin;
-    token = GetToken();
-    program();
+    //fp = stdin;
+    //token = GetToken();
+    //program();
 
+
+    CreateACTION("C:\\Users\\NaOH\\Desktop\\Compiler\\lex.CSV");
     return 0;
 }

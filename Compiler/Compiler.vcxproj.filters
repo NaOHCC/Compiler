@@ -24,6 +24,9 @@
     <ClCompile Include="RecursiveDescentParser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SLR_Parser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TestCode.txt">
@@ -32,12 +35,21 @@
     <Text Include="ParserCode.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="ACTION.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="GOTO.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LexAnalysis.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="RecursiveDescentParser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SLR_Parser.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
