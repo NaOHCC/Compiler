@@ -1,14 +1,21 @@
 #pragma once
 #ifndef SLR_PARSER
 #define SLR_PARSER
-#include<string>
+#include <string>
+#include <vector>
 #define VTCount 15
 #define VNCount 8
-struct RULE {
-	std::string terminal;
-	int length;
+struct RULE
+{
+    std::string no_terminal;
+    std::vector<std::string> symbol;
+    int length()
+    {
+        return symbol.size();
+    }
 };
 
-void CreateACTIONandGOTO(const char* path);
+void ReadRules(const char *path);
+void CreateACTIONandGOTO(const char *path);
 void SLR();
 #endif // !SLR_PARSER

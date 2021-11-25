@@ -27,7 +27,9 @@ int main()
     //program();
 
     fp = fopen("SLRCode.txt", "r+");
-    CreateACTIONandGOTO("E:\\Desktop\\Compiler\\lex_fix.csv");
+    ReadRules("./rules.txt");
+    CreateACTIONandGOTO("../lex_fix.csv");
     SLR();
+
     return 0;
 }

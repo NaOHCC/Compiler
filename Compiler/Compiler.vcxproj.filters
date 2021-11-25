@@ -44,6 +44,9 @@
     <Text Include="SLRCode.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="rules.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LexAnalysis.h">
