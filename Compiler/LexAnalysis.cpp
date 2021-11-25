@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 #include "LexAnalysis.h"
+
 using namespace std;
 const vector<string> keywords{"if", "else", "while", "do", "main", "int", "float",
                               "double", "return", "const", "void", "continue", "break", "char", "unsigned", "enum",
@@ -80,6 +81,8 @@ TOKEN GetToken()
                 state = 41;
             else if (c == '"')
                 state = 45;
+            else if (c == '#')
+                state = 900;
 
             break;
         }
@@ -623,6 +626,12 @@ TOKEN GetToken()
         {
             token.name = "digit";
             token.value = letter;
+            return token;
+        }
+        case 900:
+        {
+            token.name = "ENDFLAG";
+            token.value = "#";
             return token;
         }
         case 999:

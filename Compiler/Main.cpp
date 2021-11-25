@@ -26,7 +26,8 @@ int main()
     //token = GetToken();
     //program();
 
-
-    CreateACTION("C:\\Users\\NaOH\\Desktop\\Compiler\\lex.CSV");
+    fp = fopen("SLRCode.txt", "r+");
+    CreateACTIONandGOTO("E:\\Desktop\\Compiler\\lex_fix.csv");
+    SLR();
     return 0;
 }

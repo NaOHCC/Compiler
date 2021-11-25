@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef LEX_ANALYSIS_
 #define LEX_ANALYSIS_
 #include <string>
