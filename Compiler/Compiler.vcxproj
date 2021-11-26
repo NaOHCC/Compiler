@@ -152,10 +152,10 @@
   <ItemGroup>
     <Text Include="ACTION.txt" />
     <Text Include="GOTO.txt" />
-    <Text Include="ParserCode.txt" />
+    <Text Include="RD_Parser_Code.txt" />
     <Text Include="rules.txt" />
-    <Text Include="SLRCode.txt" />
-    <Text Include="TestCode.txt" />
+    <Text Include="SLR_Code.txt" />
+    <Text Include="LexTestCode.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

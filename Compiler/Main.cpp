@@ -12,24 +12,24 @@ TOKEN token;
 FILE *fp;
 int main()
 {
-    //fp = fopen("TestCode.txt", "r+");
+    //fp = fopen("LexTestCode.txt", "r+");
     //while (!feof(fp))
     //{
     //    token = GetToken();
     //    if (token.name != "Error" && token.name != "")
     //        printf("row:%-5d<%-10s,%-10s>\n", row, token.name.c_str(), token.value.c_str());
     //}
-    //
-    //fclose(fp);
+    
 
-    //fp = stdin;
+    //fp=fopen("RD_Parser_Code.txt", "r+");
     //token = GetToken();
     //program();
 
-    fp = fopen("SLRCode.txt", "r+");
+    fp = fopen("SLR_Code.txt", "r+");
     ReadRules("./rules.txt");
-    CreateACTIONandGOTO("../lex_fix.csv");
+    CreateACTIONandGOTO("../Action_and_Goto_Tables.csv");
     SLR();
 
+    fclose(fp);
     return 0;
 }

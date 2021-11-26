@@ -286,4 +286,5 @@ void program() // program-> block
 {
     printf("program-> block\n");
     block();
+    printf("Parser done.\n");
 }

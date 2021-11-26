@@ -1,5 +1,4 @@
-//#include<stdio.h>
-#include <string>
+﻿#include <string>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -645,7 +644,7 @@ TOKEN GetToken()
         }
         lexLength++;
     }
-    printf("---------------------lex end---------------------\n");
+    //printf("---------------------lex end---------------------\n");
     return token;
 }
 

@@ -104,7 +104,7 @@ void ReadRules(const char *path)
         rule.no_terminal = s.substr(0, pos);
         s.erase(0, pos + 2);
         string str;
-        for (int i = 0; i < s.length(); i++)
+        for (size_t i = 0; i < s.length(); i++)
         {
             if (isspace(s[i]) || s[i] == '\n')
             {
@@ -140,6 +140,8 @@ void PrintRule(const int &n)
     cout << endl;
 }
 
+extern int row;
+
 void SLR()
 {
     slr_state.push(0);
@@ -151,12 +153,12 @@ void SLR()
         string cc = ACTION[top][a];
         if (ACTION[top][a][0] == 's') //移进
         {
-            slr_state.push(stoi(ACTION[top][a].erase(0, 1)));
+            slr_state.push(stoi(cc.erase(0, 1)));
             getNextSymbol();
         }
         else if (ACTION[top][a][0] == 'r') //规约
         {
-            int rule_number = stoi(ACTION[top][a].erase(0, 1));
+            int rule_number = stoi(cc.erase(0, 1));
             for (int i = 0; i < rules[rule_number].length(); i++) //符号出栈
                 slr_state.pop();
             top = slr_state.top();
@@ -170,7 +172,8 @@ void SLR()
         }
         else
         {
-            printf("Error\n");
+            printf("Error: in row:%d\n",row);
+            break;
         }
     }
 }
