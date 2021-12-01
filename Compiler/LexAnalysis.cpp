@@ -194,9 +194,7 @@ TOKEN GetToken()
             if (c != '/' && c != '*')
             {
                 ungetc(c, fp);
-                token.name = "operator";
-                token.value = "/";
-                return token;
+                state = 47;
             }
             else
             {
@@ -259,34 +257,33 @@ TOKEN GetToken()
             token.value = ")";
             return token;
         }
-        case 22:
-        {
-            token.name = "operator";
-            token.value = "'";
-            return token;
-        }
-        case 23:
-        {
-            token.name = "operator";
-            token.value = "'";
-            return token;
-        }
-        case 24:
-        {
-            token.name = "operator";
-            token.value = "\"";
-            return token;
-        }
-        case 25:
-        {
-            token.name = "operator";
-            token.value = "\"";
-            return token;
-        }
+        //case 22:
+        //{
+        //    token.name = "operator";
+        //    token.value = "'";
+        //    return token;
+        //}
+        //case 23:
+        //{
+        //    token.name = "operator";
+        //    token.value = "'";
+        //    return token;
+        //}
+        //case 24:
+        //{
+        //    token.name = "operator";
+        //    token.value = "\"";
+        //    return token;
+        //}
+        //case 25:
+        //{
+        //    token.name = "operator";
+        //    token.value = "\"";
+        //    return token;
+        //}
         case 26:
         {
             c = getc(fp);
-            token.name = "operator";
             if (c == '=')
             {
                 state = 28; //识别!=
@@ -300,11 +297,13 @@ TOKEN GetToken()
         }
         case 27:
         {
+            token.name = "operator";
             token.value = "!";
             return token;
         }
         case 28:
         {
+            token.name = "operator";
             token.value = "!=";
             return token;
         }
@@ -473,6 +472,12 @@ TOKEN GetToken()
         {
             token.name = "string";
             token.value = letter;
+            return token;
+        }
+        case 47:
+        {
+            token.name = "operator";
+            token.value = "/";
             return token;
         }
         case 48:

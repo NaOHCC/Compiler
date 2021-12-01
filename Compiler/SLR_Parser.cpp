@@ -132,7 +132,16 @@ void ReadRules(const char *path)
 
 void PrintRule(const int &n)
 {
-    printf("%2d:%s->", n, rules[n].no_terminal.c_str());
+    auto _stack = slr_state;
+    printf("SLR_STACK:");
+    while (!_stack.empty())
+    {
+        int t = _stack.top();
+        printf("%d ", t);
+        _stack.pop();
+    }
+    printf("\t\t");
+    printf("%d:%s->", n, rules[n].no_terminal.c_str());
     for (int i = 0; i < rules[n].length(); i++)
     {
         cout << rules[n].symbol[i] << " ";
